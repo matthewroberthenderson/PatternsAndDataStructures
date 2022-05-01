@@ -5,7 +5,9 @@ enum DebugMode
 {
 	BinaryTreeStructure,
 	CommandPattern,
-	StateMachine
+	StateMachine,
+	LatentSort,
+	STL
 };
 
 

@@ -4,19 +4,42 @@
 #include "Patterns/CommandPattern/Command.h"
 #include "Patterns/StateMachine/Fan.h"
 #include "Debug.h"
+#include <vector>
+#include <memory>
+#include "Patterns/LatentSort/LatentSort.h"
 #include "Patterns/BinaryTree/BinaryTree.h"
-
+#include "STLExamples/SmartPointers.h"
 
 //debug mode
-Debug DebugModeBase = Debug(BinaryTreeStructure);
+Debug DebugModeBase = Debug(STL);
 
+std::shared_ptr<SimpleClass> SmartPointerShared_Test;
+
+
+class PoolTest
+{
+public:
+	PoolTest() 
+	{
+		std::vector<std::string> PDef;
+		for (int i = 0; i < 1000; i++) {
+			PDef.push_back("Path");
+		}
+	}
+	
+	std::string ID = "ID";
+
+};
+
+void* operator new(size_t size) 
+{
+	return malloc(size);
+}
 
 void main() {
 
 	switch (DebugModeBase.GetDebugMode())
 	{
-
-
 
 	case CommandPattern:
 	{
@@ -28,6 +51,7 @@ void main() {
 		Receiver *receiver = new Receiver;
 		invoker->SetOnFinish(new ComplexCommand(receiver, "Send email", "Save report"));
 		invoker->DoSomethingImportant();
+
 
 		//remove from heap
 		delete invoker;
@@ -67,7 +91,28 @@ void main() {
 
 	}
 
+	case STL:{
+
+		
+		SmartPointers SmartPointer = SmartPointers();
+		std::unique_ptr<SimpleClass> A = SmartPointer.CreateSmartPointer();
+		std::shared_ptr<SimpleClass> B = SmartPointer.CreateSmartPointerShared();
+		SmartPointerShared_Test = B;
+
+		break;
+	}
+
+	case LatentSort:{
+
+		void(ThreaderMain:: *A)() = &ThreaderMain::FunctionPointer;
+		A;
+
+		break;
+	}
+
 	case BinaryTreeStructure: {
+
+		
 
 		std::cout << "Working" << std::endl;
 		BinaryTreeUnitTests * UnitTestBT = new BinaryTreeUnitTests();
@@ -78,10 +123,7 @@ void main() {
 
 	case StateMachine: {
 
-
-
-
-		//state machine------------------------------------------------------------------------------------------------------------------------------------------
+		//state machine
 		Fan * fanInstance = new Fan;
 
 		//my addition to this just to show a basic example of the StateMachine
@@ -108,16 +150,9 @@ void main() {
 		break;
 	}
 
-
 	default:
-
 		break;
 	}
-
-
-
-
-
 
 
 	std::cin.get();

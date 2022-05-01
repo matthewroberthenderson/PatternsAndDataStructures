@@ -37,7 +37,7 @@ class BinaryTreeUnitTests {
 		(*head_ref) = new_node;
 	}
 
-	// method to create a new binary tree node from the given data
+	//abstract method to create a new binary tree node from the given data
 	BinaryTreeNode* newBinaryTreeNode(int data)
 	{
 		BinaryTreeNode *temp = new BinaryTreeNode;
@@ -88,6 +88,7 @@ class BinaryTreeUnitTests {
 				head = head->next;
 			}
 
+            
 			// 2.b) assign the left and right children of parent
 			parent->left = leftChild;
 			parent->right = rightChild;
@@ -112,8 +113,11 @@ public:
 	// Driver program to test above functions
 	int Test()
 	{
-		// create a linked list shown in above diagram
+		// create a linked list 
+		//the header here is the base ListNode structure
 		struct ListNode* head = NULL;
+
+		//the push node creates a new heap allocated binary tree node and assign it to the roor "head"
 		push(&head, 36);  /* Last node of Linked List */
 		push(&head, 30);
 		push(&head, 25);
